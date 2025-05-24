@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Работы Катерины Пінчук</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      margin: 0;
+      padding: 40px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #0077b6;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .photos {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+     img {
+      width: 220px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .button {
+      background-color: #00b4d8;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s, background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #0077b6;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+      
+      .container {
+        padding: 15px;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Выпускная работа</h1>
+
+    <!-- Фото -->
+    <h2>Мои фото</h2>
+    <div class="photo-gallery">
+      <div class="photo-item">
+        <img src="img/photo_2025-04-26_12-16-11.jpg" alt="Катерина 1">
+      </div>
+      <div class="photo-item">
+        <img src="img/photo_2025-04-26_12-16-19.jpg" alt="Катерина 2">
+      </div>
+    </div>
+
+    <p><strong>Катерина Пінчук</strong>, 16 років, місто Київ. У мене невелика сім'я та велика любов до технологій 🧠💻</p>
+    <p>Натисніть на будь-яку кнопку, щоб переглянути одну з моїх робіт:</p>
+
+    <!-- Кнопки -->
+    <div class="grid">
+      <button class="button" onclick="openWorkNewTab('js1.html')">Робота 1</button>
+      <button class="button" onclick="openWorkNewTab('js2.html')">Робота 2</button>
+      <button class="button" onclick="openWorkNewTab('js3.html')">Робота 3</button>
+      <button class="button" onclick="openWorkNewTab('js4.html')">Робота 4</button>
+      <button class="button" onclick="openWorkNewTab('js6.html')">Робота 5</button>
+      <button class="button" onclick="openWorkNewTab('js7.html')">Робота 6</button>
+      <button class="button" onclick="openWorkNewTab('js8.html')">Робота 7</button>
+      <button class="button" onclick="openWorkNewTab('js9.html')">Робота 8</button>
+      <button class="button" onclick="openWorkNewTab('js10.html')">Робота 9</button>
+      <button class="button" onclick="openWorkNewTab('js12.html')">Робота 10</button>
+      <button class="button" onclick="openWorkNewTab('js14.html')">Робота 11</button>
+      <button class="button" onclick="openWorkNewTab('js16.html')">Робота 12</button>
+      <button class="button" onclick="openWorkNewTab('js17.html')">Робота 13</button>
+      <button class="button" onclick="openWorkNewTab('js20.html')">Робота 14</button>
+      <button class="button" onclick="openWorkNewTab('js21.html')">Робота 15</button>
+    </div>
+  </div>
+
+  <script>
+    function openWorkNewTab(url) {
+      // Открываем в новой вкладке браузера
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
