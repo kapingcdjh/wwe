@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра "Вгадай число"</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            max-width: 450px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #0077b6;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            font-size: 16px;
+            border: 2px solid #b2ebf2;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #0077b6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005f8f;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #message {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .spacer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Гра "Вгадай число"</h1>
+        <div id="setup">
+            <input type="number" id="min" placeholder="Мінімальне число">
+            <input type="number" id="max" placeholder="Максимальне число">
+            <br>
+            <button onclick="startGame()">Почати гру</button>
+        </div>
+
+        <div id="game" class="hidden">
+            <p>Введіть своє припущення:</p>
+            <input type="number" id="guess" placeholder="Ваше число">
+            <br>
+            <button onclick="checkGuess()">Перевірити</button>
+            <div class="spacer" id="message"></div>
+        </div>
+    </div>
+
+    <script>
+        let secretNumber;
+        let attemptsLeft = 9;
+        let min, max;
+
+        function startGame() {
+            min = parseInt(document.getElementById("min").value);
+            max = parseInt(document.getElementById("max").value);
+            const message = document.getElementById("message");
+
+            if (isNaN(min) || isNaN(max) || min >= max) {
+                message.innerText = "❗ Введіть коректні значення (мінімальне < максимального)";
+                return;
+            }
+
+            secretNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            attemptsLeft = 9;
+
+            document.getElementById("setup").classList.add("hidden");
+            document.getElementById("game").classList.remove("hidden");
+            message.innerText = `🔢 Число загадано. У вас ${attemptsLeft} спроб.`;
+        }
+
+        function checkGuess() {
+            const guess = parseInt(document.getElementById("guess").value);
+            const message = document.getElementById("message");
+
+            if (isNaN(guess) || guess < min || guess > max) {
+                message.innerText = "❗ Введіть число в межах заданого діапазону.";
+                return;
+            }
+
+            if (guess === secretNumber) {
+                message.innerText = "🎉 Вітаємо! Ви вгадали число!";
+                document.getElementById("game").classList.add("hidden");
+                return;
+            }
+
+            attemptsLeft--;
+
+            if (attemptsLeft === 0) {
+                message.innerText = `😢 Ви програли! Загадане число було ${secretNumber}.`;
+                document.getElementById("game").classList.add("hidden");
+                return;
+            }
+
+            message.innerText = guess > secretNumber 
+                ? `🔻 Загадане число менше. Залишилось ${attemptsLeft} спроб.`
+                : `🔺 Загадане число більше. Залишилось ${attemptsLeft} спроб.`;
+        }
+    </script>
+</body>
+</html>
+

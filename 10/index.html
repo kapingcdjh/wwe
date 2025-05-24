@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Перевірка числа</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            color: #00796b;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 105, 92, 0.2);
+            padding: 30px;
+            width: 80%;
+            max-width: 500px;
+        }
+        
+        h1 {
+            color: #00695c;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #b2dfdb;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #00796b;
+            box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+        }
+        
+        .check-btn {
+            background-color: #00897b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .check-btn:hover {
+            background-color: #00695c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 105, 92, 0.3);
+        }
+        
+        .result {
+            font-size: 22px;
+            font-weight: 500;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            min-height: 60px;
+        }
+        
+        .not-number {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        .is-number {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Перевірка числа</h1>
+        <input type="text" id="numberInput" class="input-field" placeholder="Введіть число...">
+        <button class="check-btn" onclick="checkNumber()">Перевірити число</button>
+        <div id="result" class="result">Введіть число та натисніть "Перевірити число"</div>
+    </div>
+
+    <script>
+        function checkNumber() {
+            const number = document.getElementById('numberInput').value;
+            const resultElement = document.getElementById('result');
+            
+            if (number.trim() === '') {
+                resultElement.textContent = 'Будь ласка, введіть число';
+                resultElement.className = 'result not-number';
+                return;
+            }
+            
+            if (isNaN(number)) {
+                resultElement.textContent = `"${number}" не є валідним числом`;
+                resultElement.className = 'result not-number';
+            } else {
+                const digitWord = number.length === 1 ? 'цифру' : 'цифри';
+                resultElement.textContent = `"${number}" є валідним числом з ${number.length} ${digitWord}`;
+                resultElement.className = 'result is-number';
+            }
+        }
+        
+        // Додаємо обробник натискання Enter
+        document.getElementById('numberInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkNumber();
+            }
+        });
+    </script>
+</body>
+</html>

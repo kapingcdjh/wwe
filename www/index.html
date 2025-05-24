@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spiral Animation</title>
+  <style>
+    body {
+      margin: 0;
+      background: #eee;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    let i = 0;
+    const angleIncrement = 137.5 * Math.PI / 180; // golden angle in radians
+    const radiusStep = 4;
+    const circleRadius = 5;
+
+    function draw() {
+      const angle = i * angleIncrement;
+      const radius = radiusStep * Math.sqrt(i);
+
+      const x = centerX + radius * Math.cos(angle);
+      const y = centerY + radius * Math.sin(angle);
+
+      ctx.beginPath();
+      ctx.arc(x, y, circleRadius, 0, Math.PI * 2);
+      ctx.fillStyle = 'deepskyblue';
+      ctx.fill();
+
+      i++;
+      if (i < 1000) {
+        requestAnimationFrame(draw);
+      }
+    }
+
+    draw(); // start the animation
+  </script>
+</body>
+</html>

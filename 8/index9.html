@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спам или нет?</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+            color: #00796b;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 105, 92, 0.2);
+            padding: 30px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #00695c;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        #msg {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        #text {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 2px solid #b2dfdb;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            resize: none;
+            transition: border 0.3s ease;
+        }
+        
+        #text:focus {
+            outline: none;
+            border-color: #00796b;
+            box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.1);
+        }
+        
+        button {
+            background-color: #00897b;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        button:hover {
+            background-color: #00695c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 105, 92, 0.3);
+        }
+        
+        .spam {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        .clean {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Анализатор спама</h1>
+        <p id="msg">Введите текст для проверки</p>
+        <textarea id="text" placeholder="Введите текст здесь..."></textarea>
+        <button onclick="check()">Проверить</button>
+    </div>
+    
+    <script>
+        function check() {
+            let spam = ["безкоштовно", "гарантія", "виграш", "акція", "терміново", "обмежена кількість"];
+            let txt = document.getElementById("text").value.toLowerCase();
+            let found = spam.some(word => txt.includes(word));
+            
+            let msgElement = document.getElementById("msg");
+            msgElement.innerText = found ? "Обнаружен спам!" : "Спама не обнаружено";
+            msgElement.className = found ? "spam" : "clean";
+        }
+    </script>
+</body>
+</html>

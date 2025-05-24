@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор компліментів</title>
+    <style>
+        body {
+            background-color: #e6f2ff;
+            color: #003366;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+            transition: background-color 0.5s;
+        }
+        
+        h1 {
+            color: #0066cc;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.2);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #004080;
+        }
+        
+        input[type="number"] {
+            padding: 10px;
+            width: 80px;
+            border: 2px solid #99ccff;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        
+        button {
+            background-color: #3399ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #0077e6;
+        }
+        
+        #complimentsList {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .compliment-card {
+            background-color: #cce6ff;
+            padding: 15px;
+            border-radius: 8px;
+            width: calc(33% - 30px);
+            min-width: 200px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .compliment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+            background-color: #b3d9ff;
+        }
+        
+        @media (max-width: 600px) {
+            .compliment-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Генератор компліментів для вашого коду</h1>
+        
+        <!-- Поле для вводу числа -->
+        <label for="numCompliments">Введіть кількість компліментів:</label>
+        <input type="number" id="numCompliments" value="5" min="1" max="50">
+        <button onclick="showCompliments()">Отримати компліменти</button>
+        
+        <div id="complimentsList"></div>
+    </div>
+
+    <script>
+        // Расширенный массив комплиментов
+        const compliments = [
+            "brilliant", "charming", "clever", "amazing", "talented", 
+            "outstanding", "wonderful", "fantastic", "creative", "inspiring",
+            "exceptional", "innovative", "impressive", "remarkable", "excellent",
+            "perfect", "flawless", "masterful", "genius", "artistic",
+            "elegant", "sophisticated", "powerful", "efficient", "optimized",
+            "scalable", "maintainable", "readable", "well-structured", "modular",
+            "responsive", "adaptive", "intuitive", "user-friendly", "cutting-edge",
+            "future-proof", "bulletproof", "secure", "reliable", "robust",
+            "high-performance", "lightning-fast", "sleek", "polished", "professional",
+            "award-winning", "best-in-class", "top-tier", "gold-standard", "premium"
+        ];
+
+        // Функция для показа комплиментов
+        function showCompliments() {
+            // Получаем введенное число
+            let num = parseInt(document.getElementById('numCompliments').value);
+            
+            // Проверяем, чтобы число было в допустимых пределах
+            num = Math.max(1, Math.min(num, 50));
+            
+            // Получаем блок для вывода комплиментов
+            const complimentsListDiv = document.getElementById('complimentsList');
+            complimentsListDiv.innerHTML = "";  // Очищаем старые комплименты
+
+            // Создаем копию массива и перемешиваем ее
+            const shuffledCompliments = [...compliments].sort(() => 0.5 - Math.random());
+            
+            // Выводим комплименты
+            for (let i = 0; i < num; i++) {
+                const complimentIndex = i % shuffledCompliments.length;
+                const card = document.createElement("div");
+                card.className = "compliment-card";
+                card.textContent = `${i + 1}. ${shuffledCompliments[complimentIndex]}`;
+                complimentsListDiv.appendChild(card);
+            }
+            
+            // Меняем фон для визуального интереса
+            const hue = Math.floor(Math.random() * 60 + 180); // Голубые оттенки
+            document.body.style.backgroundColor = `hsl(${hue}, 80%, 95%)`;
+        }
+        
+        // Показываем несколько комплиментов при загрузке
+        window.onload = function() {
+            document.getElementById('numCompliments').value = "6";
+            showCompliments();
+        };
+    </script>
+</body>
+</html>

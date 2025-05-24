@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Паровоз едет прямо</title>
+    <style>
+        body {
+            background-color: pink;
+            color: black;
+            font-size: 20px;
+            text-align: center;
+            overflow: hidden; /* Чтобы не было scrollbar при движении */
+            margin: 0;
+            padding: 0;
+        }
+        #train {
+            position: absolute;
+            left: -200px; /* Начинаем за пределами экрана слева */
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <img id="train" src="img/Image20250426132718.jpg" alt="Паровоз">
+
+    <script>
+        const train = document.getElementById('train');
+        let position = -200; // Начальная позиция
+        const speed = 2; // Скорость движения
+        
+        function animateTrain() {
+            position += speed;
+            train.style.left = position + 'px';
+            
+            // Если паровоз уехал за правый край экрана
+            if (position > window.innerWidth) {
+                position = -200; // Возвращаем в начало
+            }
+            
+            requestAnimationFrame(animateTrain);
+        }
+        
+        // Запускаем анимацию при загрузке страницы
+        window.onload = animateTrain;
+    </script>
+</body>
+</html>

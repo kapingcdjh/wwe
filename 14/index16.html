@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Canvas Squares</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="500" height="100" style="border: 1px solid #d3d3d3;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+    <script>
+        const c = document.getElementById("myCanvas");
+        const ctx = c.getContext("2d");
+        ctx.fillStyle = "rgb(200, 0, 0)";
+        
+        const squareSize = 40;
+        const spacing = 5;
+        const totalSquares = 10;
+        let currentSquare = 0;
+        
+        function animate() {
+            if (currentSquare < totalSquares) {
+                // Очищаем только область для нового квадрата
+                const x = 15 + currentSquare * (squareSize + spacing);
+                ctx.clearRect(x, 15, squareSize, squareSize);
+                
+                // Рисуем новый квадрат
+                ctx.fillRect(x, 15, squareSize, squareSize);
+                
+                currentSquare++;
+                setTimeout(animate, 200); // Задержка между появлением квадратов
+            }
+        }
+        
+        // Запускаем анимацию
+        animate();
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра "Вгадай число"</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f7ff;
+            color: #0066cc;
+            text-align: center;
+            padding: 20px;
+        }
+        .game-box {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 100, 200, 0.1);
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            border: 1px solid #66b3ff;
+            border-radius: 5px;
+        }
+        button {
+            background: #3399ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #ccf2ff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        <h2>Гра "Вгадай число"</h2>
+        <input type="number" id="min" placeholder="Мінімальне число">
+        <input type="number" id="max" placeholder="Максимальне число">
+        <button onclick="startGame()">Почати гру</button>
+        <div id="gameArea" style="display:none;">
+            <input type="number" id="guess" placeholder="Ваше число">
+            <button onclick="checkGuess()">Перевірити</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let secretNumber, min, max, attempts = 9;
+
+        function startGame() {
+            min = parseInt(document.getElementById('min').value);
+            max = parseInt(document.getElementById('max').value);
+            const result = document.getElementById('result');
+
+            if (isNaN(min) || isNaN(max) || min >= max) {
+                result.innerHTML = "❗ Введіть правильний діапазон: мінімальне < максимального.";
+                return;
+            }
+
+            secretNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            attempts = 9;
+            result.innerHTML = `✅ Гру розпочато! Вгадайте число від ${min} до ${max}. У вас ${attempts} спроб.`;
+            document.getElementById('gameArea').style.display = "block";
+        }
+
+        function checkGuess() {
+            const guess = parseInt(document.getElementById('guess').value);
+            const result = document.getElementById('result');
+
+            if (isNaN(guess) || guess < min || guess > max) {
+                result.innerHTML = "🚫 Введіть число в межах діапазону.";
+                return;
+            }
+
+            attempts--;
+
+            if (guess === secretNumber) {
+                result.innerHTML = `🎉 Ви вгадали число ${secretNumber}!`;
+                document.getElementById('gameArea').style.display = "none";
+            } else if (attempts === 0) {
+                result.innerHTML = `😢 Ви програли! Загадане число було ${secretNumber}.`;
+                document.getElementById('gameArea').style.display = "none";
+            } else {
+                result.innerHTML = guess > secretNumber
+                    ? `🔻 Загадане число менше. Залишилось ${attempts} спроб.`
+                    : `🔺 Загадане число більше. Залишилось ${attempts} спроб.`;
+            }
+
+            document.getElementById('guess').value = "";
+        }
+    </script>
+</body>
+</html>

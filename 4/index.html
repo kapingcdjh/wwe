@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор послідовностей</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e0f7fa;
+            color: #006064;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 150, 200, 0.2);
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #00838f;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 18px;
+            color: #00838f;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #b2ebf2;
+            border-radius: 8px;
+            font-size: 18px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #00838f;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #006064;
+        }
+        
+        #result {
+            margin-top: 30px;
+            text-align: left;
+            font-family: monospace;
+            font-size: 24px;
+            line-height: 1.5;
+            color: #006064;
+            background-color: #e0f7fa;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Генератор послідовностей</h1>
+        
+        <div class="input-group">
+            <label for="symbol">Введіть символ:</label>
+            <input type="text" id="symbol" maxlength="1" placeholder="Наприклад: *">
+        </div>
+        
+        <div class="input-group">
+            <label for="number">Введіть кількість:</label>
+            <input type="number" id="number" min="1" max="50" value="20" placeholder="Наприклад: 20">
+        </div>
+        
+        <button onclick="generateSequence()">Згенерувати</button>
+        
+        <div id="result">Тут з'явиться результат...</div>
+    </div>
+
+    <script>
+        function generateSequence() {
+            const symbol = document.getElementById('symbol').value;
+            const number = parseInt(document.getElementById('number').value);
+            
+            if (!symbol || isNaN(number) || number < 1) {
+                alert("Будь ласка, введіть коректні значення!");
+                return;
+            }
+            
+            let result = '';
+            let row = '';
+            
+            for (let i = 1; i <= number; i++) {
+                row += symbol + ' ';
+                result += row + '\n';
+            }
+            
+            document.getElementById('result').textContent = result;
+        }
+    </script>
+</body>
+</html>

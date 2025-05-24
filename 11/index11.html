@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 5 - Аналіз числа</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e6f7ff, #b3e0ff);
+            color: #0066cc;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 102, 204, 0.2);
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: #004080;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #0066cc;
+            font-weight: 500;
+        }
+        
+        input[type="number"] {
+            width: 80%;
+            padding: 12px 15px;
+            border: 2px solid #99ccff;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+        
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        button:hover {
+            background-color: #004d99;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
+        }
+        
+        #result {
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: left;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            border-left: 4px solid #0066cc;
+            margin-top: 20px;
+            color: #004080;
+        }
+        
+        .highlight {
+            color: #0066cc;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 480px) {
+            input[type="number"] {
+                width: 90%;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Аналіз вашого числа</h2>
+        <label for="number">Введіть ціле число:</label>
+        <input type="number" id="number" placeholder="Наприклад: 12345">
+        <button onclick="analyzeNumber()">Аналізувати</button>
+        <div id="result">Тут буде результат аналізу вашого числа...</div>
+    </div>
+
+    <script>
+        function analyzeNumber() {
+            let num = document.getElementById('number').value;
+            if (num === "") {
+                alert("Будь ласка, введіть число!");
+                return;
+            }
+            num = Math.abs(parseInt(num)); // Переконуємося, що число ціле і додатне
+            let digits = num.toString().split('').map(Number);
+            let totalDigits = digits.length;
+            let evenCount = digits.filter(d => d % 2 === 0).length;
+            let oddCount = totalDigits - evenCount;
+            let sumDigits = digits.reduce((sum, d) => sum + d, 0);
+            let digitsText = digits.join(' ');
+            
+            // Визначаємо правильну форму слова "цифра"
+            let lastDigit = totalDigits % 10;
+            let lastTwoDigits = totalDigits % 100;
+            let wordForm = "цифр";
+            if (lastTwoDigits > 10 && lastTwoDigits < 20) {
+                wordForm = "цифр";
+            } else if (lastDigit === 1) {
+                wordForm = "цифра";
+            } else if (lastDigit >= 2 && lastDigit <= 4) {
+                wordForm = "цифри";
+            }
+            
+            document.getElementById('result').innerHTML = `
+                <span class="highlight">Кількість цифр:</span> ${totalDigits} ${wordForm}<br>
+                <span class="highlight">Кількість парних цифр:</span> ${evenCount}<br>
+                <span class="highlight">Кількість непарних цифр:</span> ${oddCount}<br>
+                <span class="highlight">Всі цифри числа:</span> ${digitsText}<br>
+                <span class="highlight">Сума цифр:</span> ${sumDigits}
+            `;
+        }
+        
+        // Додаємо обробник натискання Enter
+        document.getElementById('number').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analyzeNumber();
+            }
+        });
+    </script>
+</body>
+</html>
